@@ -5,8 +5,11 @@ the error that is currently occuring in my main program has been replicated into
 The error i am currently facing is when i run both backned and frontend in firefox it workes as expected but the moment i run in a browser like brave the preflight request says rejected.
 
 steps)
+<br>
 (adjust the cors origin in backend according to your frontend origin(website link))
+<br>
 ->first you need to signup
+<br>
 ->then signin
 
 firefox
