@@ -6,12 +6,14 @@ const secretKey="jjt12";
 const app=express();
 
 let DataBase=[];  // Data Base of the code for simplicity
-app.use(cors(
-    {
-        origin:["http://127.0.0.1:5500"],
-        credentials: true                                            //can change the port according to your port
-    }
-))
+
+app.use(cors({
+    origin: (origin, callback) => {
+        callback(null, true);
+    },
+    credentials: true
+}));
+
 app.use(cookieParser());
 app.use(function(req,res,next){
     console.log(DataBase);
@@ -20,17 +22,17 @@ app.use(function(req,res,next){
 
 app.post("/signup",function(req,res){
     try{
-    const Name=req.headers.name;
-    const password=req.headers.password;
-    if(Name!==""&&Name!==undefined&&password!==""&&password!==undefined){
-        DataBase.push({
-            Name:Name,
-            password:password
-        })
-        res.send("successfully signed up");
-    }else{
-        throw "user already exits";
-    }
+        const Name=req.headers.name;
+        const password=req.headers.password;
+        if(Name!==""&&Name!==undefined&&password!==""&&password!==undefined){
+            DataBase.push({
+                Name:Name,
+                password:password
+            })
+            res.send("successfully signed up");
+        }else{
+            throw "user already exits";
+        }
     }catch(error){
         console.log(error);
         res.status(403).send("bad auth");
@@ -94,3 +96,5 @@ app.get("/signin",function(req,res){
 })
 
 app.listen(3000);
+
+console.log("server started, listening on http/localhost:3000");
